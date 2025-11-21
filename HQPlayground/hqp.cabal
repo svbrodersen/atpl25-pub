@@ -57,11 +57,4 @@ executable YesTeleportation
     random
   main-is: YesTeleportation.hs 
 
-library diagrams
-    exposed-modules: CircDiagrams
-    build-depends:
-        diagrams-lib,
-        diagrams-cairo,
-        ihaskell,
-        ihaskell-diagrams    
 
