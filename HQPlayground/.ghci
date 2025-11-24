@@ -1,0 +1,8 @@
+:set -XOverloadedStrings
+:set -XDataKinds
+-- automatically import all modules from src/
+import MatrixSemantics
+import PrettyMatrix
+import QubitOperators
+import PrettyOp
+

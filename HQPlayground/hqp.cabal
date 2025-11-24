@@ -41,12 +41,6 @@ common exe-common
       hqp:core
   ghc-options: -Wall
 
-executable Test
-  import: exe-common
-  build-depends:
-    random
-  main-is: YesTeleportation.hs 
-
 executable NoCloning
   import: exe-common
   main-is: NoCloning.hs
@@ -56,12 +50,4 @@ executable YesTeleportation
   build-depends:
     random
   main-is: YesTeleportation.hs 
-
-library diagrams
-    exposed-modules: CircDiagrams
-    build-depends:
-        diagrams-lib,
-        diagrams-cairo,
-        ihaskell,
-        ihaskell-diagrams    
 
