@@ -34,13 +34,22 @@ main = do
   -- Show that CX correctly clones |0> and |1>
   let q00 = quantum_cloned_state $ ket [0]
       c00 = cx_cloned_state $ ket [0]
+      q11 = quantum_cloned_state $ ket [1]
+      c11 = cx_cloned_state $ ket [1]
   putStr $
     "-- Can we clone |0> ? --\n"
       ++ "Quantum clone |00> = "
-      ++ (showState q00)
+      ++ showState q00
       ++ "\n"
       ++ "XOR cloned    |00> = "
-      ++ (showState c00)
+      ++ showState c00
+      ++ "\n"
+      ++ "-- Can we clone |1> ? --\n"
+      ++ "Quantum clone |11> = "
+      ++ showState q11
+      ++ "\n"
+      ++ "XOR cloned    |11> = "
+      ++ showState c11
       ++ "\n"
 
 --- et cetera: Fill in the rest.
