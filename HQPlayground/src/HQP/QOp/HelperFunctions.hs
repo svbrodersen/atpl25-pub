@@ -6,7 +6,7 @@ import Data.Bits(FiniteBits,countTrailingZeros)
 -- | Signature of an operator a: C^{2^m} -> C^{2^n} is (m,n) = (op_domain a, op_range a)
 op_range :: QOp -> Int
 op_range op = case op of
-    Empty        -> 0
+    One          -> 0
     Ket ks        -> length ks 
     C a           -> 1 + op_range a
     Tensor    a b -> op_range a + op_range b
@@ -26,7 +26,7 @@ op_range op = case op of
 
 op_domain :: QOp -> Int
 op_domain op = case op of
-    Empty        -> 0
+    One          -> 0
     Ket _        -> 0 
     C a           -> 1 + op_domain a
     Tensor    a b -> op_domain a + op_domain b

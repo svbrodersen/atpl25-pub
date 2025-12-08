@@ -5,3 +5,4 @@ module HQP.PrettyPrint(
 where
 import HQP.PrettyPrint.PrettyMatrix
 import HQP.PrettyPrint.PrettyOp
+

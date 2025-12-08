@@ -62,11 +62,11 @@ main = do
     let p10    = mP 2 1 0 -- Effect of measuring second qubit to 0
     let p11    = mP 2 1 1 -- Effect of measuring second qubit to 1
 
-    let qpsi0 = normalize $ p10 <> qpsipsi
-    let qpsi1 = normalize $ p11 <> qpsipsi
+    let qpsi0 = p10 <> qpsipsi
+    let qpsi1 = p11 <> qpsipsi
 
-    let cpsi0 = normalize $ p10 <> cpsipsi
-    let cpsi1 = normalize $ p11 <> cpsipsi
+    let cpsi0 = p10 <> cpsipsi
+    let cpsi1 = p11 <> cpsipsi
 
     let qm0prob = inner qpsipsi qpsi0
     let qm1prob = inner qpsipsi qpsi1
@@ -83,19 +83,30 @@ main = do
             " - for CX|Ψ0>:  <Ψ0|CX^H IxP1 CX|Ψ0> = " ++ (show cm1prob) ++ "\n" 
 
     let (p00,p01) = (mP 2 0 0, mP 2 0 1)
-    let qp00 = inner qpsi0 (normalize $ p00 <> qpsi0)
-    let cp00 = inner cpsi0 (normalize $ p00 <> cpsi0)
+    
+    let (qpsi0n,cpsi0n) = (normalize qpsi0, normalize cpsi0)    
+    let qp00 = inner qpsi0n (p00 <> qpsi0n)
+    let cp00 = inner cpsi0n (p00 <> cpsi0n)
     
     putStrLn $ "\nProbability for measuring 0 on qubit 0 after measuring 0 on qubit 1\n" ++
             " - for   |ΨΨ>:  <ΨΨ|P0xP0|ΨΨ>         = " ++ (show qp00) ++ "\n" ++
             " - for CX|Ψ0>:  <Ψ0|CX^H P0 P0 CX|Ψ0> = " ++ (show cp00) ++ "\n"             
     
-    let qp10 = inner qpsi0 (normalize $ p01 <> qpsi0)
-    let cp10 = inner cpsi0 (normalize $ p01 <> cpsi0)
+    let qp01 = inner qpsi0n (p01 <> qpsi0n)
+    let cp01 = inner cpsi0n (p01 <> cpsi0n)
     
     putStrLn $ "\nProbability for measuring 1 on qubit 0 after measuring 0 on qubit 1\n" ++
-            " - for   |ΨΨ>:  <ΨΨ|P0xP0|ΨΨ>         = " ++ (show qp10) ++ "\n" ++
-            " - for CX|Ψ0>:  <Ψ0|CX^H P1 P0 CX|Ψ0> = " ++ (show cp10) ++ "\n"             
+            " - for   |ΨΨ>:  <ΨΨ|P0xP0|ΨΨ>         = " ++ (show qp01) ++ "\n" ++
+            " - for CX|Ψ0>:  <Ψ0|CX^H P0 P0 CX|Ψ0> = " ++ (show cp01) ++ "\n"             
+    
+
+--     let (qpsi0n,cpsi0n) = (normalize qpsi0, normalize cpsi0)
+--     let qp10 = inner (qpsi0n) (p01 <> qpsi0n)
+--     let cp10 = inner (cpsi0n) (p01 <> cpsi0n)
+    
+--     putStrLn $ "\nProbability for measuring 1 on qubit 0 after measuring 0 on qubit 1\n" ++
+--             " - for   |ΨΨ>:  <ΨΨ|P0xP0|ΨΨ>         = " ++ (show qp10) ++ "\n" ++
+--             " - for CX|Ψ0>:  <Ψ0|CX^H P1 P0 CX|Ψ0> = " ++ (show cp10) ++ "\n"             
     
     
 

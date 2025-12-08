@@ -42,7 +42,6 @@ ket0, ket1 :: Qubit
 ket0 = (1, 0)
 ket1 = (0, 1)
 
-i :: ComplexT
 i = 0 :+ 1
 
 zero :: TensorTerm
@@ -68,8 +67,8 @@ gate _ _ = undefined
 
 eval :: Operator -> TensorTerm -> TensorTerm
 eval (Atom g) ts = map (map (gate g)) ts
-eval (C op) ts = map f0 ts `add` map (ket1 :) (eval op (map f1 ts))
-     where f0 ((a, _) : qs) = ket0 : scale' a qs
+eval (C op) ts = map f0 ts -- `add` map (ket1 :) (eval op (map f1 ts))
+     where f0 ((a, b) : qs) = ket0 : scale' a qs
            f0 [] = error "Missing qubit..."
            f1 ((a, b) : qs) = scale' b qs
            f1 [] = error "Missing qubit.."

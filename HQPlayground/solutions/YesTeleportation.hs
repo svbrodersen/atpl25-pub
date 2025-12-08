@@ -5,15 +5,19 @@ import HQP.QOp.MatrixSemantics
 import System.Random(mkStdGen, randoms)
 -- import Data.List(intercalate)
 
+
+
 teleprog :: Program
 teleprog = let
         op1 = Unitary $ 
-            (C X) ⊗ I  -:-
-            H ⊗ I ⊗ I
+            (C X) ⊗ I >: 
+            H ⊗ I ⊗ I 
+
         
         op2 = Unitary $ 
-            C (I ⊗ Z)  -:-
-            I ⊗ (C X)
+            C (I ⊗ Z)  >: 
+            I ⊗ (C X) 
+            
     in
         [op1, Measure [0,1], op2]
 

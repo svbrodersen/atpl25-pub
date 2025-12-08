@@ -9,9 +9,9 @@ type ComplexT = Complex RealT
     It provides building blocks for building any n-qubit unitary operator. Explanation of constructors is given below.
  -}  
 data QOp 
-  = Empty
+  = One -- Neutral element for tensor product and composition
   | Ket [Int]        
-  | I | X | SX | Y | Z | H 
+  | I| X | Y | Z | H | SX 
   | R QOp RealT  
   | C QOp                                 
   | Permute [Int]                                                                 
@@ -25,6 +25,8 @@ data QOp
 pattern Bra :: [Int] -> QOp
 pattern Bra ks <- Adjoint (Ket ks)
   where Bra ks =  Adjoint (Ket ks)
+
+
 
 {- Quantum programs including measurement. -}
 data Step
@@ -48,9 +50,9 @@ class Semigroup o => Operator o where
   compose = (<>) -- Default semigroup compose operator. Operators form a SG under composition.
 
   -- Syntactic sugar in Unicode and ASCII
-  (∘),(-:-), (⊗), (⊕), (<.>), (<+>) :: o -> o -> o
+  (∘),(>:), (⊗), (⊕), (<.>), (<+>) :: o -> o -> o
   (∘)   = compose         -- right-to-left composition (math operator order)
-  (-:-) a b = compose b a -- left-to-right composition
+  (>:) a b = compose b a -- left-to-right composition
   (⊗)   = tensorProd
   (⊕)   = directSum
   (<.>) = tensorProd 
@@ -68,9 +70,11 @@ instance Operator QOp where
 
 infixr 8 ⊗, <.>
 infixr 7 ⊕, <+>
-infixr 6 ∘, -:-
+infixr 6 ∘, >:
 
 {-| Explanation of Op constructors:
+
+    One = Phase 0 is the neutral element for tensor product (0-qubit identity operator, scalar 1).
 
     Ket [k1,k2,...,kn] :: C -> C^{2^n} is the n-qubit ket |k1 k2 ... kn>, where ki are 0 or 1    
     
